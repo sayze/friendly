@@ -25,7 +25,7 @@ In the project directory, you can run:
 
 ## `yarn storybook`
 
-Starts storybook on the host machine at port 9009
+Starts storybook on the host machine at port 9009<br />
 Open [http://localhost:9009](http://localhost:9009) to view it in the browser.
 
 ### `yarn start`
