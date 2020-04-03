@@ -11,9 +11,21 @@ A template to serve as a starting point for react applications.
 * Formik & Yup
 * Styled components
 
+## Prerequisites
+* nodejs at very least v12 (ideally v13)
+* yarn
+
+## Install
+
+Simply run `yarn` in project directory
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+## `yarn storybook`
+
+Starts storybook on the host machine at port 9009
 
 ### `yarn start`
 
