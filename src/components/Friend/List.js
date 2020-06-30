@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'react-bootstrap'
 import Tile from './Tile'
 import Context from 'services/FilterContext'
-import { Search } from 'components/UI/Input'
 
 const filterFriends = (friends, { search }) => {
   if (search.trim().length === 0) {
@@ -18,11 +17,6 @@ const List = ({ friends }) => {
 
   return (
     <Container>
-      <Row>
-        <Col>
-          <Search />
-        </Col>
-      </Row>
       {filterFriends(friends, filters).map(friend => (
         <Row>
           <Col>
