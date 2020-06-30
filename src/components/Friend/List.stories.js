@@ -1,10 +1,12 @@
 import React from 'react'
 import faker from 'faker'
 import List from './List'
+import { Provider } from 'services/FilterContext'
 
 export default {
   title: 'Friend',
   component: List,
+  decorators: [storyFn => <Provider>{storyFn()}</Provider>],
 }
 
 const generateFriends = qty => {
