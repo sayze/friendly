@@ -1,10 +1,10 @@
 import React from 'react'
 import faker from 'faker'
-import FriendList from '.'
+import List from './List'
 
 export default {
-  title: 'Friend List',
-  component: FriendList,
+  title: 'FriendList',
+  component: List,
 }
 
 const generateFriends = qty => {
@@ -20,4 +20,4 @@ const generateFriends = qty => {
   return friends
 }
 
-export const Default = () => <FriendList friends={generateFriends(6)} />
+export const Default = () => <List friends={generateFriends(6)} />

@@ -1,6 +1,6 @@
 import React from 'react'
 import faker from 'faker'
-import Tile from '.'
+import Tile from './index'
 
 export default {
   title: 'Tile',
