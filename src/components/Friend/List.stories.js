@@ -3,7 +3,7 @@ import faker from 'faker'
 import List from './List'
 
 export default {
-  title: 'FriendList',
+  title: 'Friend',
   component: List,
 }
 
@@ -20,4 +20,4 @@ const generateFriends = qty => {
   return friends
 }
 
-export const Default = () => <List friends={generateFriends(6)} />
+export const FriendList = () => <List friends={generateFriends(6)} />
