@@ -7,7 +7,7 @@ const List = ({ friends }) => {
   return (
     <Container>
       {friends.map(friend => (
-        <Row>
+        <Row className="my-2">
           <Col>
             <Tile image={friend.img} name={friend.name} subtext={friend.info} />
           </Col>
