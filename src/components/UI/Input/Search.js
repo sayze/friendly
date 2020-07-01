@@ -1,15 +1,23 @@
-import React, { useContext } from 'react'
-import SearchField from '.'
-import Context from 'services/FilterContext'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { InputGroup, FormControl } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Search = () => {
-  const { setSearch } = useContext(Context)
+const SearchField = props => (
+  <InputGroup className="mb-3 search">
+    <span className="search__icon">
+      <FontAwesomeIcon icon={['fa', 'search']} />
+    </span>
+    <FormControl className="search__input" placeholder="Search" aria-label="Search" {...props} />
+  </InputGroup>
+)
 
-  const handleChange = evt => {
-    setSearch(evt.target.value)
-  }
-
-  return <SearchField onChange={handleChange} />
+SearchField.defaultProps = {
+  props: {},
 }
 
-export default Search
+SearchField.propTypes = {
+  props: PropTypes.object,
+}
+
+export default SearchField
