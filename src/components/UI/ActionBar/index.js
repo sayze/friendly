@@ -13,7 +13,7 @@ const ActionBar = () => {
 
   return (
     <Row className="justify-content-between align-items-baseline">
-      <Col sm md={3}>
+      <Col sm md={5}>
         <Search onChange={handleChange} />
       </Col>
       <Col sm className="text-right">
