@@ -1,16 +1,15 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
+import Home from 'screens/Home'
+import { Provider } from 'services/FilterContext'
 
-const NotFound = () => (
-  <div>
-    <h2>Whoops the page you are after does not exist</h2>
-  </div>
-)
-
-function App({ className }) {
+function App() {
   return (
-    <div>
-      <h1>Hi there</h1>
-    </div>
+    <Container>
+      <Provider>
+        <Home />
+      </Provider>
+    </Container>
   )
 }
 
