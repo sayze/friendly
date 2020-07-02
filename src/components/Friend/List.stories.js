@@ -1,5 +1,4 @@
 import React from 'react'
-import faker from 'faker'
 import List from './List'
 import { Provider } from 'services/FilterContext'
 import { fakeFriends } from './utils'
