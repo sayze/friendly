@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ImgUpload = () => (
   <div className="img-upload">
-    <FontAwesomeIcon className="img-upload__avatar" icon={['fa', 'user']} size={'3x'} />
+    <FontAwesomeIcon className="img-upload__avatar" icon={['fa', 'user']} size="4x" />
   </div>
 )
 

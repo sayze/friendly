@@ -1,15 +1,18 @@
 $base: img-upload;
+$img-dimension: 100px;
+$img-background: #d2d7db;
+$avatar-fit: 100%;
 
 .#{$base} {
-  width: 90px;
-  height: 90px;
-  background-color: #d2d7db;
+  width: $img-dimension;
+  height: $img-dimension;
+  background-color: $img-background;
   border-radius: 50%;
   text-align: center;
 
   &__avatar {
     color: #fff;
-    width: 95%;
-    height: 95%;
+    width: $avatar-fit;
+    height: $avatar-fit;
   }
 }

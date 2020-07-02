@@ -3,6 +3,7 @@ import { Form as UIForm } from 'react-bootstrap'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import PropTypes from 'prop-types'
+import ImgUpload from '../UI/ImgUpload'
 
 const Form = ({ name }) => (
   <Formik
@@ -10,8 +11,11 @@ const Form = ({ name }) => (
     onSubmit={console.log}
     initialValues={{ name }}
   >
-    <UIForm>
-      <UIForm.Group controlId="UIFormBasicEmail">
+    <UIForm className="d-flex flex-column align-items-center">
+      <UIForm.Group controlId="UIFormImag">
+        <ImgUpload />
+      </UIForm.Group>
+      <UIForm.Group className="w-100" controlId="UIFormName">
         <UIForm.Label>Name</UIForm.Label>
         <UIForm.Control name="name" type="text" placeholder="eg. John Smith" defaultValue={name} />
       </UIForm.Group>
