@@ -7,7 +7,7 @@ import './index.scss'
 const SearchInput = props => (
   <InputGroup className="mb-3 search">
     <span className="search__icon">
-      <FontAwesomeIcon icon={['fa', 'search']} />
+      <FontAwesomeIcon icon="search" />
     </span>
     <FormControl className="search__input" placeholder="Search" aria-label="Search" {...props} />
   </InputGroup>
