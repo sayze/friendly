@@ -2,7 +2,7 @@ import React from 'react'
 import Search from '.'
 
 export default {
-  title: 'Input',
+  title: 'UI/Input',
   component: Search,
 }
 

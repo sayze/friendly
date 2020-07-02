@@ -3,7 +3,7 @@ import Modal from '.'
 import { Button } from 'react-bootstrap'
 
 export default {
-  title: 'Modal',
+  title: 'UI/Modal',
   component: Modal,
 }
 

@@ -2,8 +2,10 @@ import React from 'react'
 import Form from './Form'
 
 export default {
-  title: 'Friend',
+  title: 'Friend/Form',
   component: Form,
 }
 
-export const FriendForm = () => <Form />
+export const Default = () => <Form />
+
+export const WithName = () => <Form name="Andy Smith" />

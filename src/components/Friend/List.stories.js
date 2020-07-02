@@ -4,7 +4,7 @@ import List from './List'
 import { Provider } from 'services/FilterContext'
 
 export default {
-  title: 'Friend',
+  title: 'Friend/List',
   component: List,
   decorators: [storyFn => <Provider>{storyFn()}</Provider>],
 }
@@ -22,4 +22,4 @@ const generateFriends = qty => {
   return friends
 }
 
-export const FriendList = () => <List friends={generateFriends(6)} />
+export const Default = () => <List friends={generateFriends(6)} />

@@ -3,7 +3,7 @@ import ActionBar from '.'
 import { Provider } from 'services/FilterContext'
 
 export default {
-  title: 'Action Bar',
+  title: 'UI/Action Bar',
   component: ActionBar,
   decorators: [storyFn => <Provider>{storyFn()}</Provider>],
 }
