@@ -1,29 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Modal as UIModal } from 'react-bootstrap'
-import PropTypes from 'prop-types'
+import { ModalContext } from 'services/providers'
 
-const Modal = ({ open, onClose, title, children, actions, ...modalProps }) => (
-  <UIModal show={open} onHide={onClose} {...modalProps}>
-    <UIModal.Header closeButton>
-      <UIModal.Title>{title}</UIModal.Title>
-    </UIModal.Header>
-    <UIModal.Body>{children}</UIModal.Body>
-    <UIModal.Footer>{actions}</UIModal.Footer>
-  </UIModal>
-)
+const Modal = () => {
+  const { open, onClose, title, content, actions, ...rest } = useContext(ModalContext)
 
-Modal.defaultProps = {
-  open: false,
-  onClose: () => {},
-  children: null,
-  actions: null,
-}
-
-Modal.propTypes = {
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  children: PropTypes.node,
-  actions: PropTypes.node,
+  return (
+    <UIModal show={open} onHide={onClose} {...rest}>
+      <UIModal.Header closeButton>
+        <UIModal.Title>{title}</UIModal.Title>
+      </UIModal.Header>
+      <UIModal.Body>{content}</UIModal.Body>
+      <UIModal.Footer>{actions}</UIModal.Footer>
+    </UIModal>
+  )
 }
 
 export default Modal
