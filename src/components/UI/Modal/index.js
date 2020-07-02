@@ -2,8 +2,8 @@ import React from 'react'
 import { Modal as UIModal } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
-const Modal = ({ open, onClose, title, children, actions }) => (
-  <UIModal show={open} onHide={onClose}>
+const Modal = ({ open, onClose, title, children, actions, ...modalProps }) => (
+  <UIModal show={open} onHide={onClose} {...modalProps}>
     <UIModal.Header closeButton>
       <UIModal.Title>{title}</UIModal.Title>
     </UIModal.Header>
