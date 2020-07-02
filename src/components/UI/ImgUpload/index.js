@@ -9,9 +9,9 @@ const ImgUpload = ({ image }) => (
     {image.length > 0 ? (
       <Image fluid src={image} roundedCircle />
     ) : (
-      <FontAwesomeIcon className="img-upload__avatar" icon="user" size="4x" />
+      <FontAwesomeIcon className="img-upload__avatar" icon="user" size="5x" />
     )}
-    <FontAwesomeIcon className="img-upload__camera text-secondary" icon="camera" />
+    <FontAwesomeIcon className="img-upload__camera text-secondary" icon="camera" size="2x" />
   </div>
 )
 
