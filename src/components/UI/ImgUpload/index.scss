@@ -11,6 +11,11 @@ $image-fit: 95%;
   background-color: $img-background;
   border-radius: 50%;
   text-align: center;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .8;
+  }
 
   &__avatar {
     color: #fff;
