@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Search from 'components/UI/Input'
+import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
 import Context from 'services/FilterContext'
 import { Row, Col } from 'react-bootstrap'
@@ -14,7 +14,7 @@ const ActionBar = () => {
   return (
     <Row className="justify-content-between align-items-baseline">
       <Col sm md={5}>
-        <Search onChange={handleChange} />
+        <SearchInput onChange={handleChange} />
       </Col>
       <Col sm className="text-right">
         <Button variant="primary">+ Add Friend</Button>
