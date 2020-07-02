@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'react-bootstrap'
-import Tile from '.'
 import NoContent from 'components/UI/NoContent'
+import { Tile } from '.'
 
-const renderFriends = friends =>
-  friends.length > 0 ? (
+const renderFriends = friends => {
+  return friends.length > 0 ? (
     friends.map(friend => (
-      <Row className="my-2">
-        <Col>
-          <Tile image={friend.img} name={friend.name} subtext={friend.info} />
+      <Row key={`${friend.id}-row`} className="my-2">
+        <Col key={`${friend.id}-col`}>
+          <Tile key={`${friend.id}-tile`} image={friend.img} name={friend.name} subtext={friend.info} />
         </Col>
       </Row>
     ))
@@ -24,10 +24,9 @@ const renderFriends = friends =>
       </Col>
     </Row>
   )
-
-const List = ({ friends }) => {
-  return <Container>{renderFriends(friends)}</Container>
 }
+
+const List = ({ friends }) => <Container>{renderFriends(friends)}</Container>
 
 List.defaultProps = {
   friends: [],
