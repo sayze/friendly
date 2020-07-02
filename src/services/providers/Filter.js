@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const Context = React.createContext()
 
-export const Provider = ({ children, search, page, limit, total }) => {
+const Provider = ({ children, search, page, limit, total }) => {
   const [filters, setFilters] = useState({ search, page, limit, total })
 
   const setSearch = (value = '') => {
@@ -31,4 +31,4 @@ Provider.propTypes = {
   total: PropTypes.number,
 }
 
-export default Context
+export default { Context, Provider }

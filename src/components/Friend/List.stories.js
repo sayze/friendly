@@ -1,12 +1,12 @@
 import React from 'react'
 import List from './List'
-import { Provider } from 'services/FilterContext'
+import { FilterProvider } from 'services/providers'
 import { fakeFriends } from './utils'
 
 export default {
   title: 'Friend/List',
   component: List,
-  decorators: [storyFn => <Provider>{storyFn()}</Provider>],
+  decorators: [storyFn => <FilterProvider>{storyFn()}</FilterProvider>],
 }
 
 export const Default = () => <List friends={fakeFriends(4)} />

@@ -2,14 +2,14 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import 'fontawesome'
 import Home from 'screens/Home'
-import { Provider } from 'services/FilterContext'
+import { FilterProvider } from 'services/providers'
 
 function App() {
   return (
     <Container>
-      <Provider>
+      <FilterProvider>
         <Home />
-      </Provider>
+      </FilterProvider>
     </Container>
   )
 }
