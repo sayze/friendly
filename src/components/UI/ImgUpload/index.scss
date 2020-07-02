@@ -4,6 +4,7 @@ $img-background: #d2d7db;
 $avatar-fit: 100%;
 
 .#{$base} {
+  position: relative;
   width: $img-dimension;
   height: $img-dimension;
   background-color: $img-background;
@@ -14,5 +15,11 @@ $avatar-fit: 100%;
     color: #fff;
     width: $avatar-fit;
     height: $avatar-fit;
+  }
+
+  &__camera {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
   }
 }

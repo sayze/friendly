@@ -1,4 +1,4 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCamera, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faSearch, faUser)
+library.add(faSearch, faUser, faCamera)
