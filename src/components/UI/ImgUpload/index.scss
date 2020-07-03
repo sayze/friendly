@@ -1,8 +1,7 @@
 $base: img-upload;
-$img-dimension: 110px;
+$img-dimension: 80px;
 $img-background: #d2d7db;
 $avatar-fit: 100%;
-$image-fit: 95%;
 
 .#{$base} {
   position: relative;
@@ -11,10 +10,10 @@ $image-fit: 95%;
   background-color: $img-background;
   border-radius: 50%;
   text-align: center;
-  cursor: pointer;
 
-  &:hover {
+  &:not(.read-only):hover {
     opacity: .8;
+    cursor: pointer;
   }
 
   &__avatar {

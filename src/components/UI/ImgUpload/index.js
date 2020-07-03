@@ -3,16 +3,20 @@ import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 import { FormControl, Image } from 'react-bootstrap'
+import cx from 'classnames'
 
-const ImgUpload = ({ image, onChange }) => {
+const ImgUpload = ({ image, onChange, readOnly }) => {
   const uploadInput = useRef(null)
 
-  const handleClick = event => {
+  const handleClick = () => {
+    if (readOnly) {
+      return
+    }
     uploadInput.current.click()
   }
 
   return (
-    <div onClick={handleClick} className="img-upload">
+    <div onClick={handleClick} className={cx('img-upload', { 'read-only': readOnly })}>
       <FormControl
         ref={uploadInput}
         className="d-none"
@@ -24,19 +28,28 @@ const ImgUpload = ({ image, onChange }) => {
       {image.length > 0 ? (
         <Image fluid src={image} roundedCircle />
       ) : (
-        <FontAwesomeIcon className="img-upload__avatar" icon="user" size="5x" />
+        <FontAwesomeIcon className="img-upload__avatar" icon="user" size="3x" />
       )}
-      <FontAwesomeIcon className="img-upload__camera text-secondary" icon="camera" size="2x" />
+
+      <FontAwesomeIcon
+        className={cx('img-upload__camera', 'text-secondary', { 'd-none': readOnly })}
+        icon="camera"
+        size="1x"
+      />
     </div>
   )
 }
 
 ImgUpload.defaultProps = {
   image: '',
+  readOnly: false,
+  onChange: () => {},
 }
 
 ImgUpload.propTypes = {
   image: PropTypes.string,
+  readOnly: PropTypes.bool,
+  onChange: PropTypes.func,
 }
 
 export default ImgUpload
