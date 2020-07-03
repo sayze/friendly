@@ -11,7 +11,7 @@ const Modal = () => {
         <UIModal.Title>{state.title}</UIModal.Title>
       </UIModal.Header>
       <UIModal.Body>{state.content}</UIModal.Body>
-      <UIModal.Footer>{state.actions}</UIModal.Footer>
+      {state.actions && <UIModal.Footer>{state.actions}</UIModal.Footer>}
     </UIModal>
   )
 }
