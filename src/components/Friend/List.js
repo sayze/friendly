@@ -20,7 +20,7 @@ const renderFriends = (friends, dispatchFn) => {
               dispatchFn({
                 type: 'show',
                 payload: {
-                  title: `Edit ${friend.name}`,
+                  title: friend.name,
                   content: <Form name={friend.name} />,
                   actions: <Button variant="success">Save Friend</Button>,
                 },
