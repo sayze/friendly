@@ -6,7 +6,7 @@ const Modal = () => {
   const { state, dispatch } = useContext(ModalContext)
 
   return (
-    <UIModal show={state.open} onHide={() => dispatch({ type: 'close' })}>
+    <UIModal {...state.modalProps} onHide={() => dispatch({ type: 'hide' })}>
       <UIModal.Header closeButton>
         <UIModal.Title>{state.title}</UIModal.Title>
       </UIModal.Header>

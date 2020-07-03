@@ -15,7 +15,7 @@ const ActionBar = () => {
 
   const handleAddClick = () => {
     dispatch({
-      type: 'open',
+      type: 'show',
       payload: {
         title: 'Add new friend',
         content: <Form />,

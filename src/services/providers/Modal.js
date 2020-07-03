@@ -2,17 +2,22 @@ import React, { useReducer } from 'react'
 import Modal from 'components/UI/Modal'
 
 const Context = React.createContext()
-const initialState = { open: false, title: '', content: '', onClose: () => {}, actions: null, modalProps: {} }
+const initialState = {
+  title: '',
+  content: '',
+  actions: null,
+  modalProps: { backdrop: 'static', onHide: () => {}, show: false, keyboard: false },
+}
 
 const Provider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
-      case 'close':
-        return { ...state, open: false }
-      case 'open':
-        return { ...action.payload, open: true }
+      case 'show':
+        return { ...action.payload, modalProps: { ...state.modalProps, show: true } }
+      case 'hide':
+        return { ...state, modalProps: { ...state.modalProps, show: false } }
       default:
-        return state
+        return initialState
     }
   }, initialState)
 
