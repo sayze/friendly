@@ -3,15 +3,15 @@ import { Modal as UIModal } from 'react-bootstrap'
 import { ModalContext } from 'services/providers'
 
 const Modal = () => {
-  const { open, onClose, title, content, actions, ...rest } = useContext(ModalContext)
+  const { state } = useContext(ModalContext)
 
   return (
-    <UIModal show={open} onHide={onClose} {...rest}>
+    <UIModal show={state.open} onHide={state.onClose}>
       <UIModal.Header closeButton>
-        <UIModal.Title>{title}</UIModal.Title>
+        <UIModal.Title>{state.title}</UIModal.Title>
       </UIModal.Header>
-      <UIModal.Body>{content}</UIModal.Body>
-      <UIModal.Footer>{actions}</UIModal.Footer>
+      <UIModal.Body>{state.content}</UIModal.Body>
+      <UIModal.Footer>{state.actions}</UIModal.Footer>
     </UIModal>
   )
 }

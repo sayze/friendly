@@ -3,18 +3,25 @@ import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
 import { FilterContext, ModalContext } from 'services/providers'
 import { Row, Col } from 'react-bootstrap'
-import { ADD_FRIEND } from 'components/Friend/actions'
+import { Form } from 'components/Friend'
 
 const ActionBar = () => {
   const { setSearch } = useContext(FilterContext)
-  const { setModal } = useContext(ModalContext)
+  const { dispatch } = useContext(ModalContext)
 
   const handleChange = evt => {
     setSearch(evt.target.value)
   }
 
   const handleAddClick = () => {
-    setModal(ADD_FRIEND)
+    dispatch({
+      type: 'open',
+      payload: {
+        title: 'Add new friend',
+        content: <Form />,
+        actions: <Button variant="success">Save Friend</Button>,
+      },
+    })
   }
 
   return (
