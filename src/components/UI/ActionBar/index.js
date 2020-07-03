@@ -19,7 +19,6 @@ const ActionBar = () => {
       payload: {
         title: 'Add new friend',
         content: <Form />,
-        actions: <Button variant="success">Save Friend</Button>,
       },
     })
   }

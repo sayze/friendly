@@ -4,22 +4,42 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import PropTypes from 'prop-types'
 import ImgUpload from '../UI/ImgUpload'
+import Button from 'react-bootstrap/Button'
 
 const Form = ({ name }) => (
   <Formik
-    validationSchema={Yup.object({ name: Yup.string().required() })}
+    validationSchema={Yup.object({
+      name: Yup.string()
+        .trim()
+        .required(),
+    })}
     onSubmit={console.log}
     initialValues={{ name }}
   >
-    <UIForm className="d-flex flex-column align-items-center">
-      <UIForm.Group controlId="UIFormImag">
-        <ImgUpload />
-      </UIForm.Group>
-      <UIForm.Group className="w-100" controlId="UIFormName">
-        <UIForm.Label>Name</UIForm.Label>
-        <UIForm.Control name="name" type="text" placeholder="eg. John Smith" defaultValue={name} />
-      </UIForm.Group>
-    </UIForm>
+    {({ handleSubmit, handleChange, values, errors }) => (
+      <UIForm className="d-flex flex-column align-items-center" noValidate onSubmit={handleSubmit}>
+        <UIForm.Group controlId="UIFormImag">
+          <ImgUpload />
+        </UIForm.Group>
+        <UIForm.Group className="w-100" controlId="UIFormName">
+          <UIForm.Label>Name</UIForm.Label>
+          <UIForm.Control
+            name="name"
+            type="text"
+            placeholder="eg. John Smith"
+            defaultValue={values.name}
+            onChange={handleChange}
+            isInvalid={!!errors.name}
+          />
+          <UIForm.Control.Feedback type="invalid" tooltip>
+            {errors.name}
+          </UIForm.Control.Feedback>
+        </UIForm.Group>
+        <Button type="submit" className="ml-auto mt-2" variant="success">
+          Save Friend
+        </Button>
+      </UIForm>
+    )}
   </Formik>
 )
 
