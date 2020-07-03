@@ -5,7 +5,7 @@ import { List } from 'components/Friend'
 
 const Home = () => (
   <>
-    <Row>
+    <Row className="my-5">
       <Col>
         <ActionBar />
       </Col>
