@@ -29,12 +29,13 @@ const Tile = ({ image, name, subtext, onEditClick, onDeleteClick }) => (
 
 Tile.defaultProps = {
   subtext: '',
+  image: '',
   onEditClick: () => {},
   onDeleteClick: () => {},
 }
 
 Tile.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   name: PropTypes.string.isRequired,
   subtext: PropTypes.string,
   onEditClick: PropTypes.func,
