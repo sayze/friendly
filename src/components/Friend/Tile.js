@@ -1,8 +1,9 @@
 import React from 'react'
-import { Card, Image } from 'react-bootstrap'
+import { Button, Card, Image } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 
-const Tile = ({ image, name, subtext }) => (
+const Tile = ({ image, name, subtext, onEditClick }) => (
   <Card>
     <Card.Body>
       <div className="d-flex align-items-center">
@@ -13,6 +14,9 @@ const Tile = ({ image, name, subtext }) => (
             <small>{subtext}</small>
           </p>
         </div>
+        <Button size="sm" variant="outline-secondary" className="ml-auto rounded-circle">
+          <FontAwesomeIcon onClick={onEditClick} icon="pen" />
+        </Button>
       </div>
     </Card.Body>
   </Card>
