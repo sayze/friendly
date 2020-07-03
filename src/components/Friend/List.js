@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'react-bootstrap'
 import NoContent from 'components/UI/NoContent'
-import { Tile } from '.'
+import { Form, Tile } from '.'
+import { ModalContext } from 'services/providers'
+import Button from 'react-bootstrap/Button'
 
-const renderFriends = friends => {
+const renderFriends = (friends, dispatchFn) => {
   return friends.length > 0 ? (
     friends.map(friend => (
       <Row key={`${friend.id}-row`} className="my-2">
         <Col key={`${friend.id}-col`}>
-          <Tile key={`${friend.id}-tile`} image={friend.img} name={friend.name} subtext={friend.info} />
+          <Tile
+            key={`${friend.id}-tile`}
+            image={friend.img}
+            name={friend.name}
+            subtext={friend.info}
+            onEditClick={() =>
+              dispatchFn({
+                type: 'show',
+                payload: {
+                  title: `Edit ${friend.name}`,
+                  content: <Form name={friend.name} />,
+                  actions: <Button variant="success">Save Friend</Button>,
+                },
+              })
+            }
+          />
         </Col>
       </Row>
     ))
@@ -26,7 +43,10 @@ const renderFriends = friends => {
   )
 }
 
-const List = ({ friends }) => <Container>{renderFriends(friends)}</Container>
+const List = ({ friends }) => {
+  const { state, dispatch } = useContext(ModalContext)
+  return <Container>{renderFriends(friends, dispatch)}</Container>
+}
 
 List.defaultProps = {
   friends: [],

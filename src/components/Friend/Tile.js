@@ -14,8 +14,8 @@ const Tile = ({ image, name, subtext, onEditClick }) => (
             <small>{subtext}</small>
           </p>
         </div>
-        <Button size="sm" variant="outline-secondary" className="ml-auto rounded-circle">
-          <FontAwesomeIcon onClick={onEditClick} icon="pen" />
+        <Button size="sm" onClick={onEditClick} variant="outline-secondary" className="ml-auto rounded-circle">
+          <FontAwesomeIcon icon="pen" />
         </Button>
       </div>
     </Card.Body>
