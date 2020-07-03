@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import NoContent from 'components/UI/NoContent'
 import { Form, Tile } from '.'
 import { ModalContext } from 'services/providers'
@@ -59,7 +59,7 @@ const renderFriends = (friends, dispatchFn) => {
 
 const List = ({ friends }) => {
   const { dispatch } = useContext(ModalContext)
-  return <Container>{renderFriends(friends, dispatch)}</Container>
+  return renderFriends(friends, dispatch)
 }
 
 List.defaultProps = {
