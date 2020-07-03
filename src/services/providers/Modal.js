@@ -1,21 +1,23 @@
-import React, { useState } from 'react'
+import React, { useReducer } from 'react'
 import Modal from 'components/UI/Modal'
 
 const Context = React.createContext()
+const initialState = { open: false, props: { title: '', content: '', onClose: () => {} } }
 
-const Provider = ({ children, ...modalProps }) => {
-  const [props, setProps] = useState(modalProps)
-
-  const closeModal = () => {
-    setProps({ ...props, open: false })
-  }
-
-  const setModal = state => {
-    setProps({ ...props, ...state })
-  }
+const Provider = ({ children }) => {
+  const [state, dispatch] = useReducer((state, action) => {
+    switch (action) {
+      case 'close':
+        return { ...state, open: false }
+      case 'open':
+        return { ...state, open: true }
+      default:
+        return state
+    }
+  }, initialState)
 
   return (
-    <Context.Provider value={{ ...props, onClose: closeModal, setModal, closeModal }}>
+    <Context.Provider value={{ state, dispatch }}>
       <Modal />
       {children}
     </Context.Provider>
