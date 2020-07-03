@@ -7,4 +7,4 @@ export default {
   component: List,
 }
 
-export const Default = () => <List friends={fakeFriends(4)} />
+export const Default = () => <List friends={fakeFriends(4, 2)} />
