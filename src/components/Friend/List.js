@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
 import { Row, Col } from 'react-bootstrap'
 import NoContent from 'components/UI/NoContent'
 import { Form, Tile } from '.'
-import { ModalContext } from 'services/providers'
+import { ModalContext, DataContext } from 'services/providers'
 import Button from 'react-bootstrap/Button'
 
 const renderFriends = (friends, dispatchFn) => {
@@ -57,17 +56,10 @@ const renderFriends = (friends, dispatchFn) => {
   )
 }
 
-const List = ({ friends }) => {
-  const { dispatch } = useContext(ModalContext)
-  return renderFriends(friends, dispatch)
-}
-
-List.defaultProps = {
-  friends: [],
-}
-
-List.propTypes = {
-  friends: PropTypes.array,
+const List = () => {
+  const modal = useContext(ModalContext)
+  const data = useContext(DataContext)
+  return renderFriends(data.state, modal.dispatch)
 }
 
 export default List
