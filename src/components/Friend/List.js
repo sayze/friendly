@@ -58,7 +58,7 @@ const renderFriends = (friends, dispatchFn) => {
 }
 
 const List = ({ friends }) => {
-  const { state, dispatch } = useContext(ModalContext)
+  const { dispatch } = useContext(ModalContext)
   return <Container>{renderFriends(friends, dispatch)}</Container>
 }
 
