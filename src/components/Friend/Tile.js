@@ -3,7 +3,7 @@ import { Button, Card, Image } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 
-const Tile = ({ image, name, subtext, onEditClick }) => (
+const Tile = ({ image, name, subtext, onEditClick, onDeleteClick }) => (
   <Card>
     <Card.Body>
       <div className="d-flex align-items-center">
@@ -14,9 +14,14 @@ const Tile = ({ image, name, subtext, onEditClick }) => (
             <small>{subtext}</small>
           </p>
         </div>
-        <Button size="sm" onClick={onEditClick} variant="outline-secondary" className="ml-auto rounded-circle">
-          <FontAwesomeIcon icon="pen" />
-        </Button>
+        <div className="ml-auto">
+          <Button size="sm" onClick={onEditClick} variant="outline-secondary" className="rounded mr-3">
+            <FontAwesomeIcon icon="pen" />
+          </Button>
+          <Button size="sm" onClick={onDeleteClick} variant="outline-danger" className="rounded">
+            <FontAwesomeIcon icon="trash" />
+          </Button>
+        </div>
       </div>
     </Card.Body>
   </Card>
@@ -24,12 +29,16 @@ const Tile = ({ image, name, subtext, onEditClick }) => (
 
 Tile.defaultProps = {
   subtext: '',
+  onEditClick: () => {},
+  onDeleteClick: () => {},
 }
 
 Tile.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   subtext: PropTypes.string,
+  onEditClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
 }
 
 export default Tile
