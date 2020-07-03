@@ -26,6 +26,20 @@ const renderFriends = (friends, dispatchFn) => {
                 },
               })
             }
+            onDeleteClick={() =>
+              dispatchFn({
+                type: 'show',
+                payload: {
+                  title: friend.name,
+                  content: (
+                    <span>
+                      Are you sure you want to delete <strong>{friend.name}?</strong> Action can't be undone.
+                    </span>
+                  ),
+                  actions: <Button variant="danger">Yes, Delete</Button>,
+                },
+              })
+            }
           />
         </Col>
       </Row>
