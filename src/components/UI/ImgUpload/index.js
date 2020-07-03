@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 import { FormControl, Image } from 'react-bootstrap'
 
 const ImgUpload = ({ image, onChange }) => {
+  const uploadInput = useRef(null)
+
   const handleClick = event => {
-    document.getElementById('hiddenFileInput').click()
+    uploadInput.current.click()
   }
 
   return (
     <div onClick={handleClick} className="img-upload">
       <FormControl
-        id="hiddenFileInput"
+        ref={uploadInput}
         className="d-none"
         type="file"
         name="image-file"
