@@ -3,7 +3,7 @@ import { Form as UIForm } from 'react-bootstrap'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import PropTypes from 'prop-types'
-import ImgUpload from '../UI/ImgUpload'
+import ImgUpload from 'components/UI/ImgUpload'
 import Button from 'react-bootstrap/Button'
 
 const Form = ({ name, image, onSubmit }) => (

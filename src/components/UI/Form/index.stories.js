@@ -1,6 +1,6 @@
 import React from 'react'
 import faker from 'faker'
-import Form from './Form'
+import Form from '.'
 
 export default {
   title: 'Friend/Form',

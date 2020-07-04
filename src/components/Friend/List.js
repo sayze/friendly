@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import NoContent from 'components/UI/NoContent'
-import { Form, Tile } from '.'
+import Form from 'components/UI/Form'
+import { Tile } from '.'
 import { ModalContext, DataContext } from 'services/providers'
 import Button from 'react-bootstrap/Button'
 

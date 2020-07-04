@@ -3,7 +3,7 @@ import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
 import { FilterContext, ModalContext } from 'services/providers'
 import { Row, Col } from 'react-bootstrap'
-import { Form } from 'components/Friend'
+import Form from 'components/UI/Form'
 
 const ActionBar = () => {
   const { setSearch } = useContext(FilterContext)
