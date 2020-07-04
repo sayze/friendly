@@ -15,7 +15,7 @@ const Provider = ({ children }) => {
       case 'show':
         return { ...action.payload, modalProps: { ...state.modalProps, show: true } }
       case 'hide':
-        return { ...state, modalProps: { ...state.modalProps, show: false } }
+        return { ...state, modalProps: { ...initialState.modalProps } }
       default:
         return initialState
     }

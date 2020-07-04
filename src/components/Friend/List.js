@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
-import { Tile } from '.'
+import { Delete, Tile } from '.'
 import { ModalContext, DataContext } from 'services/providers'
-import Button from 'react-bootstrap/Button'
 
 const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
@@ -36,16 +35,7 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
                 type: 'show',
                 payload: {
                   title: friend.name,
-                  content: (
-                    <span>
-                      Are you sure you want to delete <strong>{friend.name}?</strong> Action can't be undone.
-                    </span>
-                  ),
-                  actions: (
-                    <Button variant="danger" onClick={() => deleteFn(friend.id)}>
-                      Yes, Delete
-                    </Button>
-                  ),
+                  content: <Delete friend={friend} onSubmit={deleteFn} />,
                 },
               })
             }
@@ -70,14 +60,16 @@ const List = () => {
   const modal = useContext(ModalContext)
   const data = useContext(DataContext)
 
-  const handleSave = values => {
-    data.dispatch({ type: 'update', payload: values })
+  useEffect(() => {
     modal.dispatch({ type: 'hide' })
+  }, [data.state, modal])
+
+  const handleSave = values => {
+    setTimeout(() => data.dispatch({ type: 'update', payload: values }), 2000)
   }
 
-  const handleDelete = id => {
-    data.dispatch({ type: 'delete', payload: { id } })
-    modal.dispatch({ type: 'hide' })
+  const handleDelete = friend => {
+    setTimeout(() => data.dispatch({ type: 'delete', payload: { id: friend.id } }), 2000)
   }
 
   return renderFriends(data.state, modal.dispatch, handleSave, handleDelete)

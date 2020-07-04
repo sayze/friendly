@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
 import { FilterContext, ModalContext, DataContext } from 'services/providers'
@@ -10,13 +10,16 @@ const ActionBar = () => {
   const modal = useContext(ModalContext)
   const data = useContext(DataContext)
 
+  useEffect(() => {
+    modal.dispatch({ type: 'hide' })
+  }, [data.state, modal])
+
   const handleChange = evt => {
     setSearch(evt.target.value)
   }
 
   const handleSave = values => {
-    data.dispatch({ type: 'add', payload: { ...values, id: Math.floor(Date.now() / 1000) } })
-    modal.dispatch({ type: 'hide' })
+    setTimeout(() => data.dispatch({ type: 'add', payload: { ...values, id: Math.floor(Date.now() / 1000) } }), 2000)
   }
 
   const handleAddClick = () => {
