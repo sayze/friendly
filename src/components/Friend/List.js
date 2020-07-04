@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Spinner } from 'react-bootstrap'
 import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
 import { Delete, Tile } from '.'
-import { ModalContext, DataContext } from 'services/providers'
+import { ModalContext } from 'services/providers'
+import api, { useApi } from 'services/api'
+import { FETCHING, NOOP } from 'services/api/types'
 
 const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
@@ -58,21 +60,31 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
 
 const List = () => {
   const modal = useContext(ModalContext)
-  const data = useContext(DataContext)
+  const [{ status, response }, makeRequest] = useApi()
 
   useEffect(() => {
-    modal.dispatch({ type: 'hide' })
-  }, [data.state, modal])
+    makeRequest(api.FRIENDS)
+  })
 
   const handleSave = values => {
-    setTimeout(() => data.dispatch({ type: 'update', payload: values }), 2000)
+    makeRequest(api.UPDATE_FRIEND, values)
   }
 
   const handleDelete = friend => {
-    setTimeout(() => data.dispatch({ type: 'delete', payload: { id: friend.id } }), 2000)
+    makeRequest(api.DELETE_FRIEND, friend)
   }
 
-  return renderFriends(data.state, modal.dispatch, handleSave, handleDelete)
+  return status === FETCHING || status === NOOP ? (
+    <Row className="my-5 text-center">
+      <Col>
+        <Spinner className="mr-1" animation="grow" variant="secondary" size="sm" role="status" />
+        <Spinner className="mr-1" animation="grow" variant="info" size="sm" role="status" />
+        <Spinner animation="grow" variant="primary" size="sm" role="status" />
+      </Col>
+    </Row>
+  ) : (
+    renderFriends(response.data, modal.dispatch, handleSave, handleDelete)
+  )
 }
 
 export default List

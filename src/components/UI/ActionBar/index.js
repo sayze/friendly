@@ -1,25 +1,22 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
-import { FilterContext, ModalContext, DataContext } from 'services/providers'
+import { FilterContext, ModalContext } from 'services/providers'
 import { Row, Col } from 'react-bootstrap'
 import Form from 'components/UI/Form'
+import api, { useApi } from 'services/api'
 
 const ActionBar = () => {
   const { setSearch } = useContext(FilterContext)
   const modal = useContext(ModalContext)
-  const data = useContext(DataContext)
-
-  useEffect(() => {
-    modal.dispatch({ type: 'hide' })
-  }, [data.state, modal])
+  const [, makeRequest] = useApi()
 
   const handleChange = evt => {
     setSearch(evt.target.value)
   }
 
   const handleSave = values => {
-    setTimeout(() => data.dispatch({ type: 'add', payload: { ...values, id: Math.floor(Date.now() / 1000) } }), 2000)
+    makeRequest(api.ADD_FRIEND, values)
   }
 
   const handleAddClick = () => {
