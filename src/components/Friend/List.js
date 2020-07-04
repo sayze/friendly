@@ -74,22 +74,24 @@ const List = () => {
     dispatch(store.addFriend(values))
   }
 
-  return loading ? (
-    <Row className="my-5 text-center">
-      <Col>
-        <Spinner className="mr-1" animation="grow" variant="secondary" size="sm" role="status" />
-        <Spinner className="mr-1" animation="grow" variant="info" size="sm" role="status" />
-        <Spinner animation="grow" variant="primary" size="sm" role="status" />
-      </Col>
-    </Row>
-  ) : (
+  return (
     <>
       <Row className="mt-5">
         <Col>
           <ActionBar onAddFriend={handleAdd} />
         </Col>
       </Row>
-      {renderFriends(data, modal.dispatch, handleSave, handleDelete)}
+      {loading ? (
+        <Row className="my-5 text-center">
+          <Col>
+            <Spinner className="mr-1" animation="grow" variant="secondary" size="sm" role="status" />
+            <Spinner className="mr-1" animation="grow" variant="info" size="sm" role="status" />
+            <Spinner animation="grow" variant="primary" size="sm" role="status" />
+          </Col>
+        </Row>
+      ) : (
+        renderFriends(data, modal.dispatch, handleSave, handleDelete)
+      )}
     </>
   )
 }
