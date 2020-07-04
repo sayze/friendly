@@ -64,7 +64,7 @@ const List = () => {
 
   useEffect(() => {
     makeRequest(api.FRIENDS)
-  })
+  }, [makeRequest])
 
   const handleSave = values => {
     makeRequest(api.UPDATE_FRIEND, values)
