@@ -64,14 +64,17 @@ const List = () => {
 
   const handleSave = values => {
     dispatch(store.updateFriend(values))
+    modal.dispatch({ type: 'hide' })
   }
 
   const handleDelete = friend => {
     dispatch(store.deleteFriend(friend.id))
+    modal.dispatch({ type: 'hide' })
   }
 
   const handleAdd = values => {
-    dispatch(store.addFriend(values))
+    dispatch(store.addFriend({ id: Math.floor(Date.now() / 1000), ...values }))
+    modal.dispatch({ type: 'hide' })
   }
 
   return (
