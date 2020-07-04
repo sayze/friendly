@@ -15,7 +15,8 @@ const ActionBar = () => {
   }
 
   const handleSave = values => {
-    data.dispatch({ type: 'add', payload: values })
+    data.dispatch({ type: 'add', payload: { ...values, id: Math.floor(Date.now() / 1000) } })
+    modal.dispatch({ type: 'hide' })
   }
 
   const handleAddClick = () => {

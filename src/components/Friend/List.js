@@ -13,7 +13,7 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
         <Col key={`${friend.id}-col`}>
           <Tile
             key={`${friend.id}-tile`}
-            image={friend.img}
+            image={friend.image}
             name={friend.name}
             subtext={friend.info}
             onEditClick={() =>
@@ -37,7 +37,7 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
                     </span>
                   ),
                   actions: (
-                    <Button variant="danger" onClick={deleteFn}>
+                    <Button variant="danger" onClick={() => deleteFn(friend.id)}>
                       Yes, Delete
                     </Button>
                   ),
@@ -64,12 +64,15 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
 const List = () => {
   const modal = useContext(ModalContext)
   const data = useContext(DataContext)
+
   const handleSave = values => {
     data.dispatch({ type: 'update', payload: values })
+    modal.dispatch({ type: 'hide' })
   }
 
-  const handleDelete = values => {
-    data.dispatch({ type: 'delete', payload: { id: values.id } })
+  const handleDelete = id => {
+    data.dispatch({ type: 'delete', payload: { id } })
+    modal.dispatch({ type: 'hide' })
   }
 
   return renderFriends(data.state, modal.dispatch, handleSave, handleDelete)
