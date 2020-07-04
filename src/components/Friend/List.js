@@ -21,8 +21,13 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
                 type: 'show',
                 payload: {
                   title: friend.name,
-                  content: <Form name={friend.name} image={friend.img} onSubmit={submitFn} />,
-                  actions: <Button variant="success">Save Friend</Button>,
+                  content: (
+                    <Form
+                      name={friend.name}
+                      image={friend.image}
+                      onSubmit={values => submitFn({ id: friend.id, ...values })}
+                    />
+                  ),
                 },
               })
             }

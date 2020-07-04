@@ -7,8 +7,14 @@ const Provider = ({ children }) => {
     switch (action.type) {
       case 'add':
         return [...state, action.payload]
-      case 'edit':
-        return []
+      case 'update':
+        return state.map(friend => {
+          if (action.payload.id !== friend.id) {
+            return friend
+          }
+
+          return { id: friend.id, ...action.payload }
+        })
       case 'delete':
         return state.filter(friend => friend.id !== action.payload.id)
       default:
