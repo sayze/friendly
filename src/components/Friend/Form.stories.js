@@ -1,4 +1,5 @@
 import React from 'react'
+import faker from 'faker'
 import Form from './Form'
 
 export default {
@@ -8,4 +9,4 @@ export default {
 
 export const Default = () => <Form />
 
-export const WithName = () => <Form name="Andy Smith" />
+export const WithContent = () => <Form name="Andy Smith" image={faker.image.avatar()} />
