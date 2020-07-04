@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Row, Col, Spinner } from 'react-bootstrap'
+import ActionBar from 'components/UI/ActionBar'
 import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
 import { Delete, Tile } from '.'
 import { ModalContext } from 'services/providers'
-import api, { useApi } from 'services/api'
-import { FETCHING, NOOP } from 'services/api/types'
+import store, { useStore } from 'services/store'
 
 const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
@@ -60,21 +60,21 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
 
 const List = () => {
   const modal = useContext(ModalContext)
-  const [{ status, response }, makeRequest] = useApi()
-
-  useEffect(() => {
-    makeRequest(api.FRIENDS)
-  }, [makeRequest])
+  const [{ loading, data }, dispatch] = useStore()
 
   const handleSave = values => {
-    makeRequest(api.UPDATE_FRIEND, values)
+    dispatch(store.updateFriend(values))
   }
 
   const handleDelete = friend => {
-    makeRequest(api.DELETE_FRIEND, friend)
+    dispatch(store.deleteFriend(friend.id))
   }
 
-  return status === FETCHING || status === NOOP ? (
+  const handleAdd = values => {
+    dispatch(store.addFriend(values))
+  }
+
+  return loading ? (
     <Row className="my-5 text-center">
       <Col>
         <Spinner className="mr-1" animation="grow" variant="secondary" size="sm" role="status" />
@@ -83,7 +83,14 @@ const List = () => {
       </Col>
     </Row>
   ) : (
-    renderFriends(response.data, modal.dispatch, handleSave, handleDelete)
+    <>
+      <Row className="mt-5">
+        <Col>
+          <ActionBar onAddFriend={handleAdd} />
+        </Col>
+      </Row>
+      {renderFriends(data, modal.dispatch, handleSave, handleDelete)}
+    </>
   )
 }
 

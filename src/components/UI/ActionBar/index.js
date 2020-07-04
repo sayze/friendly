@@ -1,22 +1,17 @@
 import React, { useContext } from 'react'
 import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
+import PropTypes from 'prop-types'
 import { FilterContext, ModalContext } from 'services/providers'
 import { Row, Col } from 'react-bootstrap'
 import Form from 'components/UI/Form'
-import api, { useApi } from 'services/api'
 
-const ActionBar = () => {
+const ActionBar = ({ onAddFriend }) => {
   const { setSearch } = useContext(FilterContext)
   const modal = useContext(ModalContext)
-  const [, makeRequest] = useApi()
 
   const handleChange = evt => {
     setSearch(evt.target.value)
-  }
-
-  const handleSave = values => {
-    makeRequest(api.ADD_FRIEND, values)
   }
 
   const handleAddClick = () => {
@@ -24,7 +19,7 @@ const ActionBar = () => {
       type: 'show',
       payload: {
         title: 'Add new friend',
-        content: <Form onSubmit={handleSave} />,
+        content: <Form onSubmit={onAddFriend} />,
       },
     })
   }
@@ -41,6 +36,14 @@ const ActionBar = () => {
       </Col>
     </Row>
   )
+}
+
+ActionBar.defaultProps = {
+  onAddFriend: () => {},
+}
+
+ActionBar.propTypes = {
+  onAddFriend: PropTypes.func,
 }
 
 export default ActionBar
