@@ -16,7 +16,7 @@ const Form = ({ name, image, onSubmit }) => (
     onSubmit={onSubmit}
     initialValues={{ name, image }}
   >
-    {({ handleSubmit, setFieldValue, handleChange, values, touched, errors }) => (
+    {({ handleSubmit, setFieldValue, isSubmitting, handleChange, values, touched, errors }) => (
       <UIForm className="d-flex flex-column align-items-center" noValidate onSubmit={handleSubmit}>
         <UIForm.Group controlId="UIFormImag">
           <ImgUpload
@@ -36,7 +36,7 @@ const Form = ({ name, image, onSubmit }) => (
           />
           <UIForm.Control.Feedback type="invalid">{errors.name}</UIForm.Control.Feedback>
         </UIForm.Group>
-        <Button type="submit" className="ml-auto mt-2" variant="success">
+        <Button disabled={isSubmitting} type="submit" className="ml-auto mt-2" variant="success">
           Save Friend
         </Button>
       </UIForm>

@@ -1,24 +1,29 @@
 import React, { useContext } from 'react'
 import SearchInput from 'components/UI/SearchInput'
 import Button from 'react-bootstrap/Button'
-import { FilterContext, ModalContext } from 'services/providers'
+import { FilterContext, ModalContext, DataContext } from 'services/providers'
 import { Row, Col } from 'react-bootstrap'
 import Form from 'components/UI/Form'
 
 const ActionBar = () => {
   const { setSearch } = useContext(FilterContext)
-  const { dispatch } = useContext(ModalContext)
+  const modal = useContext(ModalContext)
+  const data = useContext(DataContext)
 
   const handleChange = evt => {
     setSearch(evt.target.value)
   }
 
+  const handleSave = values => {
+    data.dispatch({ type: 'add', payload: values })
+  }
+
   const handleAddClick = () => {
-    dispatch({
+    modal.dispatch({
       type: 'show',
       payload: {
         title: 'Add new friend',
-        content: <Form />,
+        content: <Form onSubmit={handleSave} />,
       },
     })
   }
