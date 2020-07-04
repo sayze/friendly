@@ -6,7 +6,7 @@ import { Tile } from '.'
 import { ModalContext, DataContext } from 'services/providers'
 import Button from 'react-bootstrap/Button'
 
-const renderFriends = (friends, dispatchFn) => {
+const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
     friends.map(friend => (
       <Row key={`${friend.id}-row`} className="my-2">
@@ -21,7 +21,7 @@ const renderFriends = (friends, dispatchFn) => {
                 type: 'show',
                 payload: {
                   title: friend.name,
-                  content: <Form name={friend.name} />,
+                  content: <Form name={friend.name} image={friend.img} onSubmit={submitFn} />,
                   actions: <Button variant="success">Save Friend</Button>,
                 },
               })
@@ -36,7 +36,11 @@ const renderFriends = (friends, dispatchFn) => {
                       Are you sure you want to delete <strong>{friend.name}?</strong> Action can't be undone.
                     </span>
                   ),
-                  actions: <Button variant="danger">Yes, Delete</Button>,
+                  actions: (
+                    <Button variant="danger" onClick={deleteFn}>
+                      Yes, Delete
+                    </Button>
+                  ),
                 },
               })
             }
@@ -60,7 +64,15 @@ const renderFriends = (friends, dispatchFn) => {
 const List = () => {
   const modal = useContext(ModalContext)
   const data = useContext(DataContext)
-  return renderFriends(data.state, modal.dispatch)
+  const handleSave = values => {
+    data.dispatch({ type: 'update', payload: values })
+  }
+
+  const handleDelete = values => {
+    data.dispatch({ type: 'delete', payload: { id: values.id } })
+  }
+
+  return renderFriends(data.state, modal.dispatch, handleSave, handleDelete)
 }
 
 export default List
