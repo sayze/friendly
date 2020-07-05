@@ -4,8 +4,17 @@ import ActionBar from 'components/UI/ActionBar'
 import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
 import { Delete, Tile } from '.'
-import { ModalContext } from 'services/providers'
+import { FilterContext, ModalContext } from 'services/providers'
 import store, { useStore } from 'services/store'
+
+const filterFriends = (query = '', data = []) => {
+  if (query.trim().length === 0) {
+    return data
+  }
+
+  const querytoLower = query.toLowerCase()
+  return data.filter(d => d.name.toLowerCase().indexOf(querytoLower) > -1)
+}
 
 const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
@@ -60,6 +69,7 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
 
 const List = () => {
   const modal = useContext(ModalContext)
+  const { filters } = useContext(FilterContext)
   const [{ loading, data }, dispatch] = useStore()
 
   const handleSave = values => {
@@ -93,7 +103,7 @@ const List = () => {
           </Col>
         </Row>
       ) : (
-        renderFriends(data, modal.dispatch, handleSave, handleDelete)
+        renderFriends(filterFriends(filters.search, data), modal.dispatch, handleSave, handleDelete)
       )}
     </>
   )
