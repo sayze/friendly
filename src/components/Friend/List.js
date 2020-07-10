@@ -1,22 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Row, Col, Spinner } from 'react-bootstrap'
 import ActionBar from 'components/UI/ActionBar'
 import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
 import { Delete, Tile } from '.'
 import { FilterContext, ModalContext } from 'services/providers'
-import store, { useStore } from 'services/store'
+import useApi, { FETCHING, SUCCESS, ERROR } from 'services/api'
 
 const filterFriends = (query = '', data = []) => {
   if (query.trim().length === 0) {
     return data
   }
 
-  const querytoLower = query.toLowerCase()
-  return data.filter(d => d.name.toLowerCase().indexOf(querytoLower) > -1)
+  const queryToLower = query.toLowerCase()
+  return data.filter(d => d.name.toLowerCase().indexOf(queryToLower) > -1)
 }
 
-const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
+const renderFriends = (friends = [], dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
     friends.map(friend => (
       <Row key={`${friend.id}-row`} className="my-2">
@@ -70,21 +70,27 @@ const renderFriends = (friends, dispatchFn, submitFn, deleteFn) => {
 const List = () => {
   const modal = useContext(ModalContext)
   const { filters } = useContext(FilterContext)
-  const [{ loading, data }, dispatch] = useStore()
+  const [{ status, response }, makeRequest] = useApi(`http://localhost:4040/friend`, {
+    verb: 'get',
+  })
+
+  useEffect(() => {
+    makeRequest()
+  }, [makeRequest])
 
   const handleSave = values => {
-    dispatch(store.updateFriend(values))
-    modal.dispatch({ type: 'hide' })
+    // dispatch(store.updateFriend(values))
+    // modal.dispatch({ type: 'hide' })
   }
 
   const handleDelete = friend => {
-    dispatch(store.deleteFriend(friend.id))
-    modal.dispatch({ type: 'hide' })
+    // dispatch(store.deleteFriend(friend.id))
+    // modal.dispatch({ type: 'hide' })
   }
 
   const handleAdd = values => {
-    dispatch(store.addFriend({ id: Math.floor(Date.now() / 1000), ...values }))
-    modal.dispatch({ type: 'hide' })
+    // dispatch(store.addFriend({ id: Math.floor(Date.now() / 1000), ...values }))
+    // modal.dispatch({ type: 'hide' })
   }
 
   return (
@@ -94,7 +100,7 @@ const List = () => {
           <ActionBar onAddFriend={handleAdd} />
         </Col>
       </Row>
-      {loading ? (
+      {status === FETCHING ? (
         <Row className="my-5 text-center">
           <Col>
             <Spinner className="mr-1" animation="grow" variant="secondary" size="sm" role="status" />
@@ -103,7 +109,7 @@ const List = () => {
           </Col>
         </Row>
       ) : (
-        renderFriends(filterFriends(filters.search, data), modal.dispatch, handleSave, handleDelete)
+        renderFriends(filterFriends(filters.search, response?.data || []), modal.dispatch, handleSave, handleDelete)
       )}
     </>
   )
