@@ -16,12 +16,15 @@ const Form = ({ name, image, onSubmit }) => (
     onSubmit={onSubmit}
     initialValues={{ name, image }}
   >
-    {({ handleSubmit, setFieldValue, isSubmitting, handleChange, values, touched, errors }) => (
+    {({ handleSubmit, setFieldValue, setFieldTouched, isSubmitting, handleChange, values, touched, errors }) => (
       <UIForm className="d-flex flex-column align-items-center" noValidate onSubmit={handleSubmit}>
         <UIForm.Group controlId="UIFormImag">
           <ImgUpload
-            image={values.image}
-            onChange={event => setFieldValue('image', URL.createObjectURL(event.target.files[0]))}
+            image={values.image ? URL.createObjectURL(values.image) : ''}
+            onChange={event => {
+              setFieldValue('image', event.target.files[0])
+              setTimeout(() => setFieldTouched('image', true))
+            }}
           />
         </UIForm.Group>
         <UIForm.Group className="w-100" controlId="UIFormName">

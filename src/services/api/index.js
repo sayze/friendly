@@ -7,8 +7,11 @@ export const getFriends = (query = '') => {
   return axios.get(baseUri(endpoint))
 }
 
-export const addFriend = (name, image = '') => {
-  return axios.post(baseUri('friend'), { name, image })
+export const addFriend = (name, image = null) => {
+  const formData = new FormData()
+  formData.append('name', name)
+  formData.append('image', image)
+  return axios.post(baseUri('friend'), formData)
 }
 
 export const deleteFriend = id => {
