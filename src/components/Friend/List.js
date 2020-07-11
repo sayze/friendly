@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { Row, Col, Spinner } from 'react-bootstrap'
+import { Row, Col, Spinner, Alert } from 'react-bootstrap'
 import ActionBar from 'components/UI/ActionBar'
 import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
 import { Delete, Tile } from '.'
 import { FilterContext, ModalContext } from 'services/providers'
-import { useStore, SET_FRIENDS, ADD_FRIEND, DELETE_FRIEND, UPDATE_FRIEND } from 'services/store'
+import { useStore, SET_FRIENDS, ADD_FRIEND, DELETE_FRIEND, UPDATE_FRIEND, SET_ERROR } from 'services/store'
 import { addFriend, deleteFriend, getFriends, updateFriend } from 'services/api'
 
 const renderFriends = (friends = [], dispatchFn, submitFn, deleteFn) => {
@@ -71,7 +71,7 @@ const List = () => {
         dispatch({ type: SET_FRIENDS, payload: response?.data.data || [] })
       })
       .catch(error => {
-        console.log(error)
+        dispatch({ type: SET_ERROR, payload: error })
       })
   }, [filters, dispatch])
 
@@ -110,6 +110,13 @@ const List = () => {
 
   return (
     <>
+      {state.error?.message && (
+        <Row className="mt-5">
+          <Col>
+            <Alert variant="danger">{state.error.message}</Alert>
+          </Col>
+        </Row>
+      )}
       <Row className="mt-5">
         <Col>
           <ActionBar onAddFriend={handleAdd} />
@@ -124,7 +131,7 @@ const List = () => {
           </Col>
         </Row>
       ) : (
-        renderFriends(state.data || [], modal.dispatch, handleSave, handleDelete)
+        renderFriends(state?.data || [], modal.dispatch, handleSave, handleDelete)
       )}
     </>
   )
