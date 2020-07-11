@@ -8,15 +8,6 @@ import { FilterContext, ModalContext } from 'services/providers'
 import { useStore, SET_FRIENDS, ADD_FRIEND, DELETE_FRIEND, UPDATE_FRIEND } from 'services/store'
 import { addFriend, deleteFriend, getFriends, updateFriend } from 'services/api'
 
-const filterFriends = (query = '', data = []) => {
-  if (query.trim().length === 0) {
-    return data
-  }
-
-  const queryToLower = query.toLowerCase()
-  return data.filter(d => d.name.toLowerCase().indexOf(queryToLower) > -1)
-}
-
 const renderFriends = (friends = [], dispatchFn, submitFn, deleteFn) => {
   return friends.length > 0 ? (
     friends.map(friend => (
@@ -34,6 +25,7 @@ const renderFriends = (friends = [], dispatchFn, submitFn, deleteFn) => {
                   title: friend.name,
                   content: (
                     <Form
+                      key={`${friend.id}-form`}
                       name={friend.name}
                       image={friend.image}
                       onSubmit={values => submitFn({ id: friend.id, ...values })}
@@ -47,7 +39,7 @@ const renderFriends = (friends = [], dispatchFn, submitFn, deleteFn) => {
                 type: 'show',
                 payload: {
                   title: friend.name,
-                  content: <Delete friend={friend} onSubmit={deleteFn} />,
+                  content: <Delete key={`${friend.id}-delete`} friend={friend} onSubmit={deleteFn} />,
                 },
               })
             }
@@ -81,7 +73,7 @@ const List = () => {
       .catch(error => {
         console.log(error)
       })
-  }, [dispatch, filters.search])
+  }, [filters, dispatch])
 
   const handleSave = values => {
     updateFriend(values.id, values.name, values.image)
@@ -107,8 +99,8 @@ const List = () => {
 
   const handleAdd = values => {
     addFriend(values.name, values.image)
-      .then(response => {
-        dispatch({ type: ADD_FRIEND, payload: values })
+      .then(({ data }) => {
+        dispatch({ type: ADD_FRIEND, payload: { id: data.data.id, ...values } })
         modal.dispatch({ type: 'hide' })
       })
       .catch(error => {
@@ -132,7 +124,7 @@ const List = () => {
           </Col>
         </Row>
       ) : (
-        renderFriends(filterFriends(filters.search, state.data || []), modal.dispatch, handleSave, handleDelete)
+        renderFriends(state.data || [], modal.dispatch, handleSave, handleDelete)
       )}
     </>
   )

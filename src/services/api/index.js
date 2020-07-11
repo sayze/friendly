@@ -3,7 +3,8 @@ import axios from 'axios'
 const baseUri = endpoint => `http://localhost:4040/${endpoint}`
 
 export const getFriends = (query = '') => {
-  return axios.get(baseUri('friend', { search: query }))
+  const endpoint = query.length > 0 ? `friend?search=${query}` : 'friend'
+  return axios.get(baseUri(endpoint))
 }
 
 export const addFriend = (name, image = '') => {
