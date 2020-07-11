@@ -5,7 +5,8 @@ import NoContent from 'components/UI/NoContent'
 import Form from 'components/UI/Form'
 import { Delete, Tile } from '.'
 import { FilterContext, ModalContext } from 'services/providers'
-import useApi, { FETCHING, SUCCESS, ERROR } from 'services/api'
+import { useStore, SET_FRIENDS, ADD_FRIEND, DELETE_FRIEND, UPDATE_FRIEND } from 'services/store'
+import { addFriend, deleteFriend, getFriends, updateFriend } from 'services/api'
 
 const filterFriends = (query = '', data = []) => {
   if (query.trim().length === 0) {
@@ -70,27 +71,49 @@ const renderFriends = (friends = [], dispatchFn, submitFn, deleteFn) => {
 const List = () => {
   const modal = useContext(ModalContext)
   const { filters } = useContext(FilterContext)
-  const [{ status, response }, makeRequest] = useApi(`http://localhost:4040/friend`, {
-    verb: 'get',
-  })
+  const [state, dispatch] = useStore(true)
 
   useEffect(() => {
-    makeRequest()
-  }, [makeRequest])
+    getFriends(filters.search)
+      .then(response => {
+        dispatch({ type: SET_FRIENDS, payload: response?.data.data || [] })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }, [dispatch, filters.search])
 
   const handleSave = values => {
-    // dispatch(store.updateFriend(values))
-    // modal.dispatch({ type: 'hide' })
+    updateFriend(values.id, values.name, values.image)
+      .then(() => {
+        dispatch({ type: UPDATE_FRIEND, payload: values })
+        modal.dispatch({ type: 'hide' })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   const handleDelete = friend => {
-    // dispatch(store.deleteFriend(friend.id))
-    // modal.dispatch({ type: 'hide' })
+    deleteFriend(friend.id)
+      .then(() => {
+        dispatch({ type: DELETE_FRIEND, payload: { id: friend.id } })
+        modal.dispatch({ type: 'hide' })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   const handleAdd = values => {
-    // dispatch(store.addFriend({ id: Math.floor(Date.now() / 1000), ...values }))
-    // modal.dispatch({ type: 'hide' })
+    addFriend(values.name, values.image)
+      .then(response => {
+        dispatch({ type: ADD_FRIEND, payload: values })
+        modal.dispatch({ type: 'hide' })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   return (
@@ -100,7 +123,7 @@ const List = () => {
           <ActionBar onAddFriend={handleAdd} />
         </Col>
       </Row>
-      {status === FETCHING ? (
+      {state.loading ? (
         <Row className="my-5 text-center">
           <Col>
             <Spinner className="mr-1" animation="grow" variant="secondary" size="sm" role="status" />
@@ -109,7 +132,7 @@ const List = () => {
           </Col>
         </Row>
       ) : (
-        renderFriends(filterFriends(filters.search, response?.data || []), modal.dispatch, handleSave, handleDelete)
+        renderFriends(filterFriends(filters.search, state.data || []), modal.dispatch, handleSave, handleDelete)
       )}
     </>
   )

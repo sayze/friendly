@@ -1,10 +1,12 @@
 import { useReducer } from 'react'
-import { ADD_FRIEND, DELETE_FRIEND, UPDATE_FRIEND } from '.'
+import { ADD_FRIEND, DELETE_FRIEND, UPDATE_FRIEND, SET_FRIENDS } from '.'
 
 const useStore = (loading = false, data = []) => {
   const [state, dispatch] = useReducer(
     (state, { type, payload }) => {
       switch (type) {
+        case SET_FRIENDS:
+          return { ...state, data: payload, loading: false }
         case ADD_FRIEND:
           return { ...state, data: [...state.data, { ...payload }] }
         case UPDATE_FRIEND:
