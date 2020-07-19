@@ -22,8 +22,11 @@ const Form = ({ name, image, onSubmit }) => (
           <ImgUpload
             image={values.image ? URL.createObjectURL(values.image) : ''}
             onChange={event => {
-              setFieldValue('image', event.target.files[0])
-              setTimeout(() => setFieldTouched('image', true))
+              const selection = event.target.files[0] || null
+              if (selection) {
+                setFieldValue('image', selection)
+                setTimeout(() => setFieldTouched('image', true))
+              }
             }}
           />
         </UIForm.Group>
