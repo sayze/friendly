@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
-import { FormControl, Image } from 'react-bootstrap'
+import { FormControl } from 'react-bootstrap'
 import cx from 'classnames'
 
 const ImgUpload = ({ image, onChange, readOnly }) => {
@@ -16,7 +16,11 @@ const ImgUpload = ({ image, onChange, readOnly }) => {
   }
 
   return (
-    <div onClick={handleClick} className={cx('img-upload', { 'read-only': readOnly })}>
+    <div
+      onClick={handleClick}
+      className={cx('img-upload', { 'read-only': readOnly })}
+      style={{ backgroundImage: image.length > 0 ? `url(${image})` : 'none' }}
+    >
       <FormControl
         ref={uploadInput}
         className="d-none"
@@ -25,12 +29,7 @@ const ImgUpload = ({ image, onChange, readOnly }) => {
         onChange={onChange}
         accept="image/png, image/jpeg"
       />
-      {image.length > 0 ? (
-        <Image fluid src={image} roundedCircle />
-      ) : (
-        <FontAwesomeIcon className="img-upload__avatar" icon="user" size="3x" />
-      )}
-
+      {image.length === 0 && <FontAwesomeIcon className="img-upload__avatar" icon="user" size="3x" />}
       <FontAwesomeIcon
         className={cx('img-upload__camera', 'text-secondary', { 'd-none': readOnly })}
         icon="camera"

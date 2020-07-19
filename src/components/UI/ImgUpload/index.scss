@@ -10,6 +10,8 @@ $avatar-fit: 100%;
   background-color: $img-background;
   border-radius: 50%;
   text-align: center;
+  background-repeat:no-repeat;
+  background-size:cover;
 
   &:not(.read-only):hover {
     opacity: .8;
