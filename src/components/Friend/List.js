@@ -100,7 +100,7 @@ const List = () => {
   const handleAdd = values => {
     addFriend(values.name, values.image)
       .then(({ data }) => {
-        dispatch({ type: ADD_FRIEND, payload: { id: data.data.id, ...values } })
+        dispatch({ type: ADD_FRIEND, payload: { id: data.data.id, ...data.data } })
         modal.dispatch({ type: 'hide' })
       })
       .catch(error => {
