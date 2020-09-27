@@ -6,6 +6,16 @@ import PropTypes from 'prop-types'
 import ImgUpload from 'components/UI/ImgUpload'
 import Button from 'react-bootstrap/Button'
 
+const getImage = image => {
+  if (typeof image === 'string' && image.length > 0) {
+    return image
+  } else if (typeof image === 'object') {
+    return URL.createObjectURL(image)
+  }
+
+  return ''
+}
+
 const Form = ({ name, image, onSubmit }) => (
   <Formik
     validationSchema={Yup.object({
@@ -20,7 +30,7 @@ const Form = ({ name, image, onSubmit }) => (
       <UIForm className="d-flex flex-column align-items-center" noValidate onSubmit={handleSubmit}>
         <UIForm.Group controlId="UIFormImag">
           <ImgUpload
-            image={values.image ? URL.createObjectURL(values.image) : ''}
+            image={getImage(values.image)}
             onChange={event => {
               const selection = event.target.files[0] || null
               if (selection) {
