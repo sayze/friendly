@@ -77,8 +77,9 @@ const List = () => {
 
   const handleSave = values => {
     updateFriend(values.id, values.name, values.image)
-      .then(() => {
-        dispatch({ type: UPDATE_FRIEND, payload: values })
+      .then(({ data }) => {
+        console.log(data)
+        dispatch({ type: UPDATE_FRIEND, payload: { id: data.data.id, ...data.data } })
         modal.dispatch({ type: 'hide' })
       })
       .catch(error => {
