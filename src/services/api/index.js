@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUri = endpoint =>
   process.env.NODE_ENV === 'production'
-    ? `https://friendly-api.herokuapp.com/${endpoint}`
+    ? `https://friendly-api.sayedsadeed.com/${endpoint}`
     : `http://localhost:4040/${endpoint}`
 
 export const getFriends = (query = '') => {
