@@ -4,14 +4,14 @@ on:
     branches:
       - 'master'
 jobs:
-  docker:
+  release:
     runs-on: ubuntu-latest
     steps:
       -
         name: Check out repository code
         uses: actions/checkout@v2
       -
-        name: release
+        name: upgrade helm chart
         uses: koslibpro/helm-eks-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
