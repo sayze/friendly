@@ -26,3 +26,11 @@ jobs:
         with:
           push: true
           tags: sayze/friendly-ui:latest
+      -
+        name: Deploy
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_HOST: ${{ secrets.KUBE_HOST }}
+          KUBE_TOKEN: ${{ secrets.KUBE_TOKEN }}
+        with:
+          args: get pods
