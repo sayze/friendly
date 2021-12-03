@@ -26,6 +26,9 @@ jobs:
         with: 
           push: true
           tags: sayze/friendly-ui:latest
+      - 
+        name: Check out repository code
+        uses: actions/checkout@v2
       -
         name: deploy
         uses: koslibpro/helm-eks-action@master

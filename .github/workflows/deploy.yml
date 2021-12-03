@@ -1,0 +1,21 @@
+name: deploy
+on: 
+  workflow_run:
+    workflows: ["build-publish"]
+    branches: [main]
+    types: 
+      - completed
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Check out repository code
+        uses: actions/checkout@v2
+      -
+        name: deploy
+        uses: koslibpro/helm-eks-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+        with:
+          command: helm upgrade --install ui-friendly /github/workspace/charts -n friendly --set image.tag=${{ github.sha }} --wait
