@@ -1,4 +1,4 @@
-name: build-publish
+name: "Build and publish"
 on: 
   push:
     branches:
@@ -25,14 +25,4 @@ jobs:
         uses: docker/build-push-action@v2
         with: 
           push: true
-          tags: sayze/friendly-ui:latest
-      - 
-        name: Check out repository code
-        uses: actions/checkout@v2
-      -
-        name: deploy
-        uses: koslibpro/helm-eks-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
-        with:
-          command: helm upgrade --install ui-friendly /github/workspace/charts -n friendly --set image.tag=${{ github.sha }} --wait
+          tags: sayze/friendly-ui:${{ github.sha }}

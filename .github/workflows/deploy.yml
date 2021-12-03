@@ -1,15 +1,13 @@
-name: deploy
+name: "Deploy"
 on: 
-  workflow_run:
-    workflows: ["build-publish"]
-    branches: [main]
-    types: 
-      - completed
+  push:
+    branches:
+      - 'master'
 jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - 
+      -
         name: Check out repository code
         uses: actions/checkout@v2
       -
@@ -18,4 +16,4 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         with:
-          command: helm upgrade --install ui-friendly /github/workspace/charts -n friendly --set image.tag=${{ github.sha }} --wait
+          command: helm upgrade --install ui-friendly ${{ github.workspace }}/charts -n friendly --set image.tag=${{ github.sha }} --wait
