@@ -13,7 +13,7 @@ jobs:
         name: Check out repository code
         uses: actions/checkout@v2
       -
-        name: upgrade helm chart
+        name: Upgrade helm chart
         uses: koslibpro/helm-eks-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
