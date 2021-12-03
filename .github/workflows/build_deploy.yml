@@ -27,6 +27,7 @@ jobs:
           push: true
           tags: sayze/friendly-ui:${{ github.sha }}
   deploy:
+    needs: publish
     runs-on: ubuntu-latest
     steps:
       -
