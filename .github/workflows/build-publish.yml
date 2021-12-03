@@ -27,9 +27,9 @@ jobs:
       #     push: true
       #     tags: sayze/friendly-ui:latest
       -
-        name: Deploy
-        uses: actions-hub/kubectl@master
+        name: deploy
+        uses: koslibpro/helm-eks-action@master
         env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: get pods
+          command: helm upgrade --install ui-friendly /github/workspace/charts  --set image.tag=${{ github.sha }} --wait
