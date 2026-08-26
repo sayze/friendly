@@ -15,7 +15,7 @@ A contact-management SPA (add/search/edit/delete "friends", each with a name and
 ## Commands
 
 ```
-npm install       # install deps (see Notes: legacy-peer-deps)
+npm install       # install deps (Node 24.15+ required, see Notes)
 npm run dev        # start dev server (Vite, default port 5173)
 npm run build       # production build -> dist/
 npm run preview       # serve the production build locally
@@ -65,6 +65,6 @@ There is no router — this is a single screen (`Home`).
 
 ## Notes
 
-- `npm install` requires `--legacy-peer-deps` (already set via `.npmrc`) because some transitive peer ranges haven't caught up to React 19 yet — this is expected, not a bug to "fix" by downgrading React.
+- Requires Node 24.15+ — `jsdom`/`vitest`'s transitive deps enforce this via `engines`, and it's also what fixed a real `npm install`/`npm ci` mismatch: npm <10.9.8 has an arborist bug that crashes resolving this dependency tree, and older npm's `--legacy-peer-deps` handling of optional peers (e.g. `@storybook/react-vite`'s optional `typescript` peer) isn't stable across npm patch versions — it produced a lockfile that `npm ci` then rejected in Docker. Don't reach for `--legacy-peer-deps` again if `npm install` complains; upgrade npm instead.
 - The backend (`friendly-api`) is not part of this repo; `npm run dev` against it locally expects it on `http://localhost:4040` by default (`.env.example`).
 - No router is wired up; if a second screen is ever added, `react-router-dom` was deliberately removed as dead weight and would need to be reintroduced.

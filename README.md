@@ -8,17 +8,14 @@ to point it at your backend.
 
 ## Prerequisites
 
-* Node.js 20+
-* npm 10+
+* Node.js 24.15+ (LTS)
+* npm 11+
 
 ## Install
 
 ```
 npm install
 ```
-
-`npm install` requires `--legacy-peer-deps`; this is already configured in
-`.npmrc`, so a plain `npm install` works.
 
 ## Environment variables
 
