@@ -1,9 +1,8 @@
 import axios from 'axios'
 
-const baseUri = endpoint =>
-  process.env.NODE_ENV === 'production'
-    ? `https://friendly-api.sayedsadeed.com/${endpoint}`
-    : `http://localhost:4040/${endpoint}`
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4040'
+
+const baseUri = endpoint => `${API_URL}/${endpoint}`
 
 export const getFriends = (query = '') => {
   const endpoint = query.length > 0 ? `friend?search=${query}` : 'friend'

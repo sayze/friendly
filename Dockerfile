@@ -1,20 +1,21 @@
 # Build frontend assets
-FROM node:14 as BUILDER
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
+COPY package.json package-lock.json ./
+RUN npm ci
+
 COPY . .
+RUN npm run build
 
-RUN yarn install && yarn build
-
-# Copy compiled assets to nginx container
+# Serve compiled assets with nginx
 FROM nginx:alpine
 
 WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
 
-COPY --from=builder /app/build .
+COPY --from=builder /app/dist .
 
-# Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

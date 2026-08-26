@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src"
-  }
+    "baseUrl": "./src",
+    "paths": {
+      "components/*": ["components/*"],
+      "services/*": ["services/*"],
+      "screens/*": ["screens/*"],
+      "fontawesome": ["fontawesome.js"]
+    }
+  },
+  "include": ["src"]
 }
